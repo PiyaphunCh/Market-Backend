@@ -3,7 +3,7 @@ import { CronJob } from 'cron'
 
 // Define your cron job function
 const myCronJob = async () => {
-  await axios.post('http://localhost:3000/api/get/market', { type: 'all' })
+  await axios.post('https://market-backend-woad.vercel.app/', { type: 'all' })
 }
 
 // Create a cron job

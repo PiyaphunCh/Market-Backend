@@ -78,10 +78,11 @@ const getRolMarket = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             const itemsAll = yield item_model_1.itemsModel.find();
             Object.keys(groupedKeys).forEach(function (key, index) {
                 groupedKeys[key].map((item) => __awaiter(this, void 0, void 0, function* () {
+                    var _a;
                     const itemIsSetBuy = itemsAll.filter((obj) => {
                         return obj.name === item.name;
                     });
-                    if (item.price <= itemIsSetBuy[0].buyPrice) {
+                    if (item.price <= (((_a = itemIsSetBuy[0]) === null || _a === void 0 ? void 0 : _a.buyPrice) || 0)) {
                         let str = `\ngame : rol\n`;
                         str += `item name : ${item.name}\n`;
                         str += `refine : +${item.refine}\n`;

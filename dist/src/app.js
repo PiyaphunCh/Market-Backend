@@ -6,14 +6,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const rountes_1 = require("./rountes");
 const mongoose_1 = require("mongoose");
-var cors = require('cors');
+const cors_1 = __importDefault(require("cors"));
+const cronjob_1 = __importDefault(require("../cronjob")); // Assuming your cronjob file exports the cron job
 const app = (0, express_1.default)();
 const port = 3000;
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.use(cors());
+app.use((0, cors_1.default)());
+// Connect to MongoDB
 const mongoURI = 'mongodb://localhost:27017/market';
-(0, mongoose_1.connect)(mongoURI);
-console.log('MongoDB Connected...');
-app.use('/api', rountes_1.routes);
-app.listen(port, () => console.log(`Application is running on port ${port}`));
+(0, mongoose_1.connect)(mongoURI)
+    .then(() => {
+    console.log('MongoDB Connected...');
+    // Start the cron job
+    cronjob_1.default.start();
+    console.log('Cron job started...');
+    // Set up routes
+    app.use('/api', rountes_1.routes);
+    // Start the server
+    app.listen(port, () => {
+        console.log(`Application is running on port ${port}`);
+    });
+})
+    .catch((err) => {
+    console.error('MongoDB connection error:', err);
+});
