@@ -12,7 +12,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 // Connect to MongoDB
-const mongoURI: string = 'mongodb://localhost:27017/market'
+const mongoURI: string =
+  'mongodb://manageadmin:qrmosManageAdmin1234!@165.22.243.246:27017/manage'
 connect(mongoURI)
   .then(() => {
     console.log('MongoDB Connected...')
