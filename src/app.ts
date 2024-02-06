@@ -15,23 +15,19 @@ app.use(cors())
 const mongoURI: string =
   'mongodb://manageadmin:qrmosManageAdmin1234!@165.22.243.246:27017/manage'
 connect(mongoURI)
-  .then(() => {
-    console.log('MongoDB Connected...')
 
-    // Start the cron job
-    cronJob.start()
-    console.log('Cron job started...')
+console.log('MongoDB Connected...')
 
-    // Set up routes
-    app.use('/api', routes)
+// Start the cron job
+cronJob.start()
+console.log('Cron job started...')
 
-    // Start the server
-    app.listen(port, () => {
-      console.log(`Application is running on port ${port}`)
-    })
-  })
-  .catch((err) => {
-    console.error('MongoDB connection error:', err)
-  })
+// Set up routes
+app.use('/api', routes)
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Application is running on port ${port}`)
+})
 
 export default app
